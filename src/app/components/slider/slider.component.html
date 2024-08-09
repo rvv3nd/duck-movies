@@ -1,0 +1,9 @@
+<div class="slider-container">
+    <h2>{{ title }}</h2>
+    <div class="slider">
+    <mat-card *ngFor="let item of items" class="slider-item" (click)="handleCardClick(item.id)">
+        <img mat-card-image [src]="'https://image.tmdb.org/t/p/w500' + item.poster_path + '/images'" alt="{{item.title}}">
+        <mat-card-title>{{item.title}}</mat-card-title>
+    </mat-card>
+    </div>
+</div>

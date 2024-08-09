@@ -1,0 +1,29 @@
+.slider-container {
+    margin: 20px 2px;
+  }
+  
+  .slider {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    margin: 10px;
+  }
+  
+  .slider-item {
+    flex: 0 0 auto;
+    width: 200px;
+    margin-right: 10px;
+    scroll-snap-align: start;
+  }
+  
+  .slider-item img {
+    width: 100%;
+    height: auto;
+  }
+
+  h2{
+    color: #030303;
+    font-size: 1.5em;
+    margin: 0;
+    padding: 0;
+  }

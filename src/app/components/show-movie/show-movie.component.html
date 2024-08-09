@@ -1,0 +1,9 @@
+<h2 mat-dialog-title style="margin: 12px;">{{data.title}}</h2>
+<mat-icon (click)="close()" style="position: absolute; top: 12px; right: 12px;">close</mat-icon>
+<mat-dialog-content style="overflow-x: auto;">
+    <div style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
+        <img mat-dialog-content [src]="'https://image.tmdb.org/t/p/w200' + data.poster_path + '/images'" alt="{{data.title}}" class="img_container">
+    </div>
+    <h3>Overview</h3>
+    {{data.overview}}
+</mat-dialog-content>
