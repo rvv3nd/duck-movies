@@ -14,9 +14,12 @@ export class RepositoryService {
   peliculasPopulares:any = []
   peliculasPlayingNow:any = []
   peliculaSeleccionada : Subject<{}> = new Subject<{}>()
-  currentPage:number = 1
-  currentTotalPages:number = 0
-  currentTotalResults:number = 0
+  currentPagePP:number = 1
+  currentPagePN:number = 1
+  currentTotalPagesPP:number = 0
+  currentTotalPagesPN:number = 0
+  currentTotalResultsPP:number = 0
+  currentTotalResultsPN:number = 0
 
   //GET MOVIE POR ID
 
@@ -29,11 +32,11 @@ export class RepositoryService {
   //POPULAR METODOS
 
   async getPeliculasPopulares(){
-    let response  = this.movieService.getMoviesList("popular", this.currentPage)
+    let response  = this.movieService.getMoviesList("popular", this.currentPagePP)
     response.subscribe((data)=>{
-      this.currentPage = data.page
-      this.currentTotalPages = data.total_pages
-      this.currentTotalResults = data.total_results
+      this.currentPagePP = data.page
+      this.currentTotalPagesPP = data.total_pages
+      this.currentTotalResultsPP = data.total_results
       this.peliculasPopulares = data.results
     })
   }
@@ -41,11 +44,11 @@ export class RepositoryService {
   //PLAYING NOW METODOS
 
   async getPeliculasPlayingNow(){
-    let response  = this.movieService.getMoviesList("now_playing", this.currentPage)
+    let response  = this.movieService.getMoviesList("now_playing", this.currentPagePN)
     response.subscribe((data)=>{
-      this.currentPage = data.page
-      this.currentTotalPages = data.total_pages
-      this.currentTotalResults = data.total_results
+      this.currentPagePN = data.page
+      this.currentTotalPagesPN = data.total_pages
+      this.currentTotalResultsPN = data.total_results
       this.peliculasPlayingNow = data.results
     })
   }
@@ -53,35 +56,62 @@ export class RepositoryService {
 
   // Función genérica para obtener la siguiente página
   async getNextPage(categoria: string) {
-    if (this.currentPage < this.currentTotalPages) {
-      this.currentPage++;
-      if(categoria == "popular") await this.getPeliculasPopulares();
-      if(categoria == "now_playing") await this.getPeliculasPlayingNow();
+
+    if(categoria == "popular"){
+      if(this.currentPagePP < this.currentTotalPagesPP) this.currentPagePP++;
+      else this.currentPagePP = 1;
+      await this.getPeliculasPopulares();
+    } 
+      
+    else if(categoria == "now_playing") {
+      if(this.currentPagePN < this.currentTotalPagesPN) this.currentPagePN++;
+      else this.currentPagePN = 1;
+      await this.getPeliculasPlayingNow();
     }
+  
   }
 
   // Función genérica para obtener la página anterior
   async getPreviousPage(categoria: string) {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-      if(categoria == "popular") await this.getPeliculasPopulares();
-      if(categoria == "now_playing") await this.getPeliculasPlayingNow();
+    if (categoria == "popular") {
+      if (this.currentPagePP > 1) {
+        this.currentPagePP--;
+        await this.getPeliculasPopulares();
+      }
+    }
+      
+    else if (categoria == "now_playing") {
+      if (this.currentPagePN > 1) {
+        this.currentPagePN--;
+        await this.getPeliculasPlayingNow();
+      }
     }
   }
 
   // Función genérica para obtener la primera página
   async getFirstPage(categoria: string) {
-    this.currentPage = 1;
-    if(categoria == "popular") await this.getPeliculasPopulares();
-    if(categoria == "now_playing") await this.getPeliculasPlayingNow();
+    if (categoria == "popular") {
+      this.currentPagePP = 1;
+      await this.getPeliculasPopulares();
+    }
+      
+    else if (categoria == "now_playing") {
+      this.currentPagePN = 1;
+      await this.getPeliculasPlayingNow();
+    }
   }
 
   // Función genérica para obtener la última página
   async getLastPage(categoria: string) {
-    this.currentPage = this.currentTotalPages;
-    if(categoria == "popular") await this.getPeliculasPopulares();
-    if(categoria == "now_playing") await this.getPeliculasPlayingNow();
+    if (categoria == "popular") {
+      this.currentPagePP = this.currentTotalPagesPP;
+      await this.getPeliculasPopulares();
+    }
+      
+    else if (categoria == "now_playing") {
+      this.currentPagePN = this.currentTotalPagesPN;
+      await this.getPeliculasPlayingNow();
+    }
   }
-  
 
 }

@@ -6,6 +6,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { SliderComponent } from "../slider/slider.component";
+import { BuscadorComponent } from "../buscador/buscador.component";
 
 @Component({
   selector: 'app-home',
@@ -16,7 +17,8 @@ import { SliderComponent } from "../slider/slider.component";
     MatCardModule,
     MatButtonModule,
     MatIconModule,
-    SliderComponent
+    SliderComponent,
+    BuscadorComponent
 ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './home.component.html',

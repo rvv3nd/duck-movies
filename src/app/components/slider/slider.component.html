@@ -6,15 +6,12 @@
         <mat-card-title>{{item.title}}</mat-card-title>
     </mat-card>
     </div>
+
     <mat-paginator 
-        [length]="repository.currentTotalPages * 20"
+        length="{{category == 'popular' ? repository.currentTotalPagesPP : repository.currentTotalPagesPN }}"
         [pageSize]="20"
-        pageIndex="{{repository.currentPage - 1}}"
+        pageIndex="{{category == 'popular' ? repository.currentPagePP - 1 : repository.currentPagePN - 1}}"
         aria-label="Select page"
         (page)="onPageEvent($event)">
     </mat-paginator>
-    <div class="navigation-buttons">
-        <button mat-button (click)="repository.getFirstPage(category)" *ngIf="repository.currentPage > 2">Primera</button>
-        <button mat-button (click)="repository.getLastPage(category)" *ngIf="repository.currentPage < repository.currentTotalPages - 1">Última</button>
-    </div>
 </div>
