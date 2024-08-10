@@ -41,9 +41,7 @@ export class HomeComponent {
       
     })
 
-    this.repository.isLoading.subscribe((data)=>{
-      this.loading = data
-    })
+
 
   }
 

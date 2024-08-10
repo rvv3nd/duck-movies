@@ -4,7 +4,6 @@ import { HomeComponent } from "./components/home/home.component";
 import { CommonModule } from '@angular/common';
 
 
-
 @Component({
   selector: 'app-root',
   standalone: true,
