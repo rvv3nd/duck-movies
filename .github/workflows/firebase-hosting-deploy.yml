@@ -15,7 +15,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '14'
+          node-version: '18.18'
       - name: Install dependencies
         run: npm install
       - name: Build
@@ -24,4 +24,4 @@ jobs:
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_DUCK_MOVIES_44A08 }}
-          projectId: duck-movies-44a08
+          projectId: duck-movies-44a08git 
