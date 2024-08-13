@@ -1,6 +1,38 @@
 <mat-form-field class="search-container">
-    <input matInput placeholder="Buscar">
-    <button matSuffix mat-icon-button aria-label="Search">
+    <input matInput placeholder="Buscar peliculas populares" [(ngModel)]="searchText" (focus)="onFocus()" (blur)="onBlur()" (ngModelChange)="onInputChange()" (keyup.enter)="onSearch()" (keyup.backspace)="reset()">
+    <button *ngIf="focus" matSuffix mat-icon-button aria-label="Clear"  (click)="onClear()">
+        <mat-icon>close</mat-icon>
+    </button>
+    <button matSuffix mat-icon-button aria-label="Search" (click)="onSearch()">
         <mat-icon>search</mat-icon>
     </button>
 </mat-form-field>
+
+<div *ngIf="searchText!='' && onFocus" class="listaRes">
+    <h2 style="padding: 16px;">Resultados para "{{searchText}}"</h2>
+    <ul *ngIf="searchResults.length > 0">
+      <li *ngFor="let pelicula of searchResults">
+        <mat-card appearance="outlined" class="card">
+            <mat-card-content>{{ pelicula.title }}</mat-card-content>
+            <mat-card-actions>
+                <button mat-button (click)="showMovie(pelicula.id)"><label>Ver</label><mat-icon>play_arrow</mat-icon></button>
+            </mat-card-actions>
+          </mat-card>
+      </li>
+    </ul>
+    <label *ngIf="sinResultados"> Sin resultados</label>
+    <label *ngIf="searchResults.length == 0 && !sinResultados"> Enter para iniciar busqueda</label>
+</div>
+<div *ngIf="focus && top.length>0" class="listaRes">
+    <h2 style="padding: 16px;">Top 5 peliculas populares</h2>
+    <ul *ngIf="top.length > 0">
+        <li *ngFor="let pelicula of top">
+          <mat-card appearance="outlined" class="card">
+              <mat-card-content>{{ pelicula.title }}</mat-card-content>
+              <mat-card-actions>
+                  <button mat-button (click)="showMovie(pelicula.id)"><label>Ver</label><mat-icon>play_arrow</mat-icon></button>
+              </mat-card-actions>
+            </mat-card>
+        </li>
+      </ul>
+</div>

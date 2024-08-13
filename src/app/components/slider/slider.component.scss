@@ -1,21 +1,48 @@
 .slider-container {
-    margin: 20px 2px;
+    margin: 20px 16px;
   }
+
+  .butonsContainer button{
+    width: 40%;
+  }
+
+  .title-section  {
+    font-size: 50px;
+    margin-bottom: 20px;
+    font-weight: 800;
+    color: #fffade;
+    width: fit-content;
+  }
+
   
   .slider {
     display: flex;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
-    margin: 10px;
+    margin: 10px -16px 10px -16px;
+
+    .poster{
+      height: 300px;
+      max-height: 300px;
+      min-height: 300px;
+    }
+    .title{
+      padding: 16px;
+      text-align:left;
+      text-overflow:clip;
+    }
+
   }
   
   .slider-item {
     flex: 0 0 auto;
     width: 200px;
+    min-height: 450px;
+    max-height: 470px;
     margin-right: 10px;
     scroll-snap-align: start;
+    background: rgb(255 255 255 / 46%);
   }
-  
   .slider-item img {
     width: 100%;
     height: auto;
@@ -26,4 +53,33 @@
     font-size: 1.5em;
     margin: 0;
     padding: 0;
+  }
+
+  .pageButton{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fffade;
+    border: 1px solid rgb(173, 173, 168);
+    border-radius: 8px;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+
+  .butonsContainer{
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+  }
+
+  .toggle-button {
+    display: block;
+    margin: 10px auto;
+    background-color: #fffade;
+    border: 1px solid rgb(173, 173, 168);
+    border-radius: 8px;
   }

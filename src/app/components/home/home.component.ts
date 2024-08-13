@@ -36,11 +36,13 @@ export class HomeComponent {
   ngOnInit(){
     this.repository.getPeliculasPopulares().then(()=>{
       //console.log(this.repository.peliculasPopulares)
-     
     })
     this.repository.getPeliculasPlayingNow().then(()=>{
-      //console.log(this.repository.peliculasPlayingNow)
-      
+      //Inicializa variables para el loading de su simagenes
+      this.repository.peliculasPlayingNow.forEach((element:any) => {
+        element.imageLoaded = false;
+        element.imageNotFoundOnServer = false;
+      });
     })
 
 

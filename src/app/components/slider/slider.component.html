@@ -1,17 +1,35 @@
 <div class="slider-container">
-    <h2>{{ title }}</h2>
+    <h2 class="title-section">{{ title }}</h2>
     <div class="slider">
-    <mat-card *ngFor="let item of items" class="slider-item" (click)="handleCardClick(item.id)">
-        <img mat-card-image [src]="'https://image.tmdb.org/t/p/w500' + item.poster_path + '/images'" alt="{{item.title}}">
-        <mat-card-title>{{item.title}}</mat-card-title>
-    </mat-card>
+        <mat-card *ngFor="let item of items" class="slider-item" (click)="handleCardClick(item.id)">
+            <mat-progress-spinner 
+                *ngIf="!item.imageLoaded && !item.imageNotFoundOnServer" mode="indeterminate" color="warn" 
+                style="margin-left:30px;margin-top:100px;z-index: 99999; overflow-y:hidden;"></mat-progress-spinner>
+            <img class="poster" *ngIf="item.imageNotFoundOnServer" src="../../../assets/img/no photo found.jpg">
+            <img class="poster" (load)="item.imageLoaded = true" (error)="item.imageNotFoundOnServer = true" [style.display]="item.imageLoaded ? 'block' : 'none'" mat-card-image [src]="'https://image.tmdb.org/t/p/w500' + item.poster_path + '/images'" alt="{{item.title}}">
+            <mat-card-title class="title">{{item.title}}</mat-card-title>
+        </mat-card>
     </div>
-
-    <mat-paginator 
-        length="{{category == 'popular' ? repository.currentTotalPagesPP : repository.currentTotalPagesPN }}"
-        [pageSize]="20"
-        pageIndex="{{category == 'popular' ? repository.currentPagePP - 1 : repository.currentPagePN - 1}}"
-        aria-label="Select page"
-        (page)="onPageEvent($event)">
-    </mat-paginator>
+    <button mat-button class="toggle-button" (click)="togglePaginator()">
+        <mat-icon>{{ paginatorVisible ? 'expand_less' : 'expand_more' }}</mat-icon>
+    </button>
+    <div class="paginator-container" [style.display]="paginatorVisible ? 'block' : 'none'">
+        <div class="butonsContainer">
+            <button *ngIf="repository.currentPage >= 3 " mat-icon-button class="pageButton" (click)="firstPage()">
+                <mat-icon style="margin: 0;">chevron_left</mat-icon>
+                <mat-icon style="margin: 0;">chevron_left</mat-icon>
+            </button>
+            <button *ngIf="repository.currentPage > 1" mat-icon-button class="pageButton" (click)="previousPage()">
+                <mat-icon>chevron_left</mat-icon>
+            </button>
+            <button *ngIf="repository.currentPage < repository.currentTotalPages" mat-icon-button class="pageButton" (click)="nextPage()">
+                <mat-icon>chevron_right</mat-icon>
+            </button>
+            <button *ngIf="repository.currentPage < repository.currentTotalPages-1" mat-icon-button class="pageButton" (click)="lastPage()">
+                <mat-icon style="margin: 0;">chevron_right</mat-icon>
+                <mat-icon style="margin: 0;">chevron_right</mat-icon>
+            </button>
+        </div>
+    </div>
 </div>
+

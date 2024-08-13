@@ -1,4 +1,23 @@
 .search-container{
     display: flex;
-    position: sticky;
+    position: relative;
+}
+.listaRes {
+    position: absolute;
+    left: 0;
+    right: 0;
+    color: white;
+    background: rgb(0 0 0 / 80%); /* Fondo blanco para que se vea claramente */
+    z-index: 1000; /* Alto índice z para sobreponerse a otros elementos */
+    border: 1px solid #ccc; /* Opcional: borde para mejor visualización */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Opcional: sombra para mejor visualización */
+    margin-top: -20px; /* Opcional: ajustar la posición del menú */
+}
+.card{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    color: black;
+    margin: 15px -20px;
 }

@@ -1,16 +1,28 @@
-<h2 mat-dialog-title style="margin: 12px;">{{data.title}}</h2>
-<mat-icon (click)="close()" style="position: absolute; top: 12px; right: 12px;">close</mat-icon>
-<mat-dialog-content style="overflow-x: auto;">
+<div class="header-container">
+    <h2 mat-dialog-title style="margin: 12px; width: 70%;">{{data.title}}</h2>
+    <mat-icon (click)="close()" style="position: absolute; top: 12px; right: 12px;">close</mat-icon>
+</div>
+<mat-dialog-content style="overflow-x: auto;background-image: linear-gradient(to bottom, #dedede, #e5e5e5, #eeeded, #f7f6f5, #fffffe);
+">
     <div style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
         <mat-progress-spinner 
         *ngIf="!imageLoaded" mode="indeterminate" color="warn" 
         style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 99999;"></mat-progress-spinner>
-        <img mat-dialog-content [src]="'https://image.tmdb.org/t/p/w200' + data.poster_path + '/images'" alt="{{data.title}}" class="img_container"
-        (load)="setLoading()" [hidden]="!imageLoaded">
+        <img *ngIf="!imageError" mat-dialog-content [src]="'https://image.tmdb.org/t/p/w200' + data.poster_path + '/images'" alt="{{data.title}}" class="img_container"
+        (load)="setLoading()" (error)="onError()" [hidden]="!imageLoaded">
     </div>
     <div>
-        <label class="label" id="release_date"><h2>Fecha de estreno</h2> {{fechaDeEstreno}}</label>
-        <label class="label" id="rate"><h2>Calificación</h2> {{rateAjustado}}/10</label>
+        <div class="rate-container">
+            <label class="label" id="rate"><h2>Calificación</h2> {{rateAjustado}}/10</label>
+            <div class="stars-container">
+                <label class="label" id="rate"> ¿Ya la viste?</label>
+                <label class="label" id="rate"> ¡Calificala!</label>
+                <igc-rating value="ratingVal" [readOnly]="!editable" min="1" max="5" (igcChange)="ratingChanged($event);"></igc-rating>
+                <button *ngIf="showSendRate && editable" mat-button (click)="sendRate()">Envíar</button>
+            </div>
+        </div>
+        <label class="label" id="date"><h2>Fecha de estreno</h2> {{fechaDeEstreno}}</label>
         <label class="label" id="overview"><h2>Resumen</h2> {{data.overview}}</label>
+        <igx-toast #toast></igx-toast>
     </div>
 </mat-dialog-content>

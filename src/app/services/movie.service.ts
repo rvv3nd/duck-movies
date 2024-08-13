@@ -31,5 +31,10 @@ export class MovieService {
     const url = `${this.baseURL}/movie/${id}`;
     return this.http.get(url, { headers: this.headers });
   }
+
+  rateMovie(id: number, rate: number): Observable<any> {
+    const url = `${this.baseURL}/movie/${id}/rating`;
+    return this.http.post(url, { value: rate }, { headers: this.headers });
+  }
   
 }

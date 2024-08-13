@@ -1,3 +1,11 @@
+.header-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    background-color: #dcdcdc;
+}
+
 .img_container {
     max-width: 25%;
     max-height: 25%;
@@ -8,14 +16,39 @@
     }
 }
 
+.rate-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 10px;
+
+    .stars-container{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
 
 .label{
     display: flex;
     flex-direction: column;
+    
     h2{
-        margin-bottom: -5px;
+        margin: 0px;
+        width: fit-content;
+        background: #97979757;
     }
 }
+
+#rate,
+#rate-link {
+    text-align: center;
+    font-weight: 200;
+}
+
 
 
 #release_date{
